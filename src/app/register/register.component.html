@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Register</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <!-- public registrationData: any = {
+    FirstName: "",
+    LastName: "",
+    MobileNumber: undefined,
+    Email: "",
+    Password: "",
+    IsVendor: false,
+    ShopName: "",
+    BusinessType: ""
+  }; -->
+    <ion-item lines="full">
+        <ion-label position="floating">First name</ion-label>
+        <ion-input [(ngModel)]="registrationData.FirstName" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+        <ion-label position="floating">Last name</ion-label>
+        <ion-input [(ngModel)]="registrationData.LastName" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+        <ion-label position="floating">Mobile Number</ion-label>
+        <ion-input [(ngModel)]="registrationData.MobileNumber" type="number" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input [(ngModel)]="registrationData.Email" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input [(ngModel)]="registrationData.Password" type="password" required></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Are you a Vendor?</ion-label>
+        <ion-toggle [(ngModel)]="registrationData.IsVendor" slot="start" name="vendor" color="danger" ></ion-toggle>
+    </ion-item>
+    
+    <div class="shop-fields" *ngIf="registrationData.IsVendor">
+        <ion-item lines="full">
+            <ion-label position="floating">Shop Name</ion-label>
+            <ion-input [(ngModel)]="registrationData.ShopName" type="text" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Type of Business</ion-label>
+            <ion-select value="notifications" [(ngModel)]= "registrationData.BusinessType" interface="action-sheet">
+              <ion-select-option *ngFor="let item of businessTypes" value="{{item.Id}}">{{item.Description}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+    </div>
+
+    <ion-row>
+        <ion-col>
+            <ion-button type="submit" color="danger" expand="block" (click)="register();">Sign Up</ion-button>
+        </ion-col>
+    </ion-row>
+</ion-content>

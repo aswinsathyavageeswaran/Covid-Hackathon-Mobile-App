@@ -14,6 +14,10 @@ import { Tab1Page } from './tab1/tab1.page';
 import { Tab2Page } from './tab2/tab2.page';
 import { Tab3Page } from './tab3/tab3.page';
 import { TabsPage } from './tabs/tabs.page';
+import { HomePageComponent } from './homepage/homepage.component';
+import { LoginPageComponent } from './login/loginpage.component';
+import { RegisterPageComponent } from './register/register.component';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +25,10 @@ import { TabsPage } from './tabs/tabs.page';
     TabsPage,
     Tab1Page,
     Tab2Page,
-    Tab3Page
+    Tab3Page,
+    HomePageComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
   ],
   entryComponents: [],
   imports: [
