@@ -7,6 +7,9 @@ import { Tab2Page } from './tab2/tab2.page';
 import { HomePageComponent } from './homepage/homepage.component';
 import { LoginPageComponent } from './login/loginpage.component';
 import { RegisterPageComponent } from './register/register.component';
+import { DetailsPageComponent } from './detailspage/detailspage.component';
+import { ShopListingPageComponent } from './shoplistingpage/shoplistingpage.component';
+import { ShopDetailsPageComponent } from './shopdetailpage/shopdetailpage.component';
 
 const routes: Routes = [
   {
@@ -18,8 +21,20 @@ const routes: Routes = [
     component: LoginPageComponent
   },
   {
-    path: "registration",
+    path: "register",
     component: RegisterPageComponent
+  },
+  {
+    path: "details",
+    component: DetailsPageComponent
+  },
+  {
+    path: "shoplist",
+    component: ShopListingPageComponent
+  },
+  {
+    path: "shopdetails",
+    component: ShopDetailsPageComponent
   },
   {
     path: 'tabs',
@@ -41,7 +56,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/details',
     pathMatch: 'full'
   }
 ];

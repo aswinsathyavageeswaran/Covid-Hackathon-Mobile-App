@@ -3,67 +3,94 @@
         <ion-buttons slot="start">
             <ion-back-button></ion-back-button>
         </ion-buttons>
-        <ion-title>Register</ion-title>
+        <ion-buttons slot="start">
+            <img src="assets/images/logo.png" style="padding-left:20px; width: 120px;" />
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content center text-center>
+    <div class="mainbg">
+        <ion-card>
+            <ion-card-content>
+                <ion-item lines="full">
+                    <ion-label position="floating">Shop Name</ion-label>
+                    <ion-input (ngModelChange)="formChanged($event, 'ShopName');"
+                        [(ngModel)]="registrationData.ShopName" type="text" required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Type of Business</ion-label>
+                    <ion-select value="notifications" (ngModelChange)="formChanged($event, 'TypeOfBusiness');"
+                        [(ngModel)]="registrationData.TypeOfBusiness" interface="action-sheet">
+                        <ion-select-option *ngFor="let item of dataService.businessTypes" value="{{item.TypeId}}">
+                            {{item.Description}}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Address</ion-label>
+                    <ion-input (ngModelChange)="formChanged($event, 'Address');" [(ngModel)]="registrationData.Address"
+                        type="text" required></ion-input>
+                </ion-item>
 
-    <!-- public registrationData: any = {
-    FirstName: "",
-    LastName: "",
-    MobileNumber: undefined,
-    Email: "",
-    Password: "",
-    IsVendor: false,
-    ShopName: "",
-    BusinessType: ""
-  }; -->
-    <ion-item lines="full">
-        <ion-label position="floating">First name</ion-label>
-        <ion-input [(ngModel)]="registrationData.FirstName" type="text" required></ion-input>
-    </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">First Name</ion-label>
+                    <ion-input (ngModelChange)="formChanged($event, 'FirstName');"
+                        [(ngModel)]="registrationData.FirstName" type="text" required></ion-input>
+                </ion-item>
 
-    <ion-item lines="full">
-        <ion-label position="floating">Last name</ion-label>
-        <ion-input [(ngModel)]="registrationData.LastName" type="text" required></ion-input>
-    </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Last Name</ion-label>
+                    <ion-input (ngModelChange)="formChanged($event, 'LastName');"
+                        [(ngModel)]="registrationData.LastName" type="text" required></ion-input>
+                </ion-item>
 
-    <ion-item lines="full">
-        <ion-label position="floating">Mobile Number</ion-label>
-        <ion-input [(ngModel)]="registrationData.MobileNumber" type="number" required></ion-input>
-    </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Mobile Number</ion-label>
+                    <ion-input (ngModelChange)="formChanged($event, 'Phone');" [(ngModel)]="registrationData.Phone"
+                        type="number" required></ion-input>
+                </ion-item>
 
-    <ion-item lines="full">
-        <ion-label position="floating">Email</ion-label>
-        <ion-input [(ngModel)]="registrationData.Email" type="text" required></ion-input>
-    </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Email</ion-label>
+                    <ion-input (ngModelChange)="formChanged($event, 'UserEmail');"
+                        [(ngModel)]="registrationData.UserEmail" type="text" required></ion-input>
+                </ion-item>
 
-    <ion-item lines="full">
-        <ion-label position="floating">Password</ion-label>
-        <ion-input [(ngModel)]="registrationData.Password" type="password" required></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label>Are you a Vendor?</ion-label>
-        <ion-toggle [(ngModel)]="registrationData.IsVendor" slot="start" name="vendor" color="danger" ></ion-toggle>
-    </ion-item>
-    
-    <div class="shop-fields" *ngIf="registrationData.IsVendor">
-        <ion-item lines="full">
-            <ion-label position="floating">Shop Name</ion-label>
-            <ion-input [(ngModel)]="registrationData.ShopName" type="text" required></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Type of Business</ion-label>
-            <ion-select value="notifications" [(ngModel)]= "registrationData.BusinessType" interface="action-sheet">
-              <ion-select-option *ngFor="let item of businessTypes" value="{{item.Id}}">{{item.Description}}</ion-select-option>
-            </ion-select>
-          </ion-item>
+                <ion-item lines="full" *ngIf="!dataService.loggedInShopDetails">
+                    <ion-label position="floating">Password</ion-label>
+                    <ion-input (ngModelChange)="formChanged($event, 'Password');"
+                        [(ngModel)]="registrationData.Password" type="password" required></ion-input>
+                </ion-item>
+                <ion-item lines="full" *ngIf="!dataService.loggedInShopDetails">
+                    <ion-label position="floating">Confirm Password</ion-label>
+                    <ion-input (ngModelChange)="formChanged($event, 'ConfirmPassword');"
+                        [(ngModel)]="confirmPassword" type="password" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>Is Home Delivery Available?</ion-label>
+                    <ion-toggle (ngModelChange)="toggleButtonChanged($event);"
+                        [(ngModel)]="registrationData.IsHomeDeliveryAvailable" slot="start" name="vendor"
+                        color="danger">{{registrationData.IsHomeDeliveryAvailable}}</ion-toggle>
+                </ion-item>
+
+                <ion-item lines="full" *ngIf="registrationData.IsHomeDeliveryAvailable">
+                    <ion-label position="floating">Home Delivery Number</ion-label>
+                    <ion-input (ngModelChange)="formChanged($event, 'DeliveryNumber');"
+                        [(ngModel)]="registrationData.DeliveryNumber" type="number" required></ion-input>
+                </ion-item>
+                <div class="mandatory-msg-div">
+                    All fields are Mandatory <span>*</span>
+                </div>
+                <ion-row>
+                    <ion-col>
+                        <ion-button type="submit" [disabled]="isFormDirty" expand="block" (click)="register();">
+                            {{this.dataService.businessTypes ? 'Update' : 'Sign Up'}}</ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
     </div>
-
-    <ion-row>
-        <ion-col>
-            <ion-button type="submit" color="danger" expand="block" (click)="register();">Sign Up</ion-button>
-        </ion-col>
-    </ion-row>
 </ion-content>
+<app-loader *ngIf="dataService.loading$ | async"></app-loader>

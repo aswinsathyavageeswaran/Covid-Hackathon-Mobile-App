@@ -1,0 +1,141 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="start">
+            <img src="assets/images/logo.png" style="padding-left:20px; width: 120px;"/>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+    <ion-card sticky class="cat-1">
+        <ion-avatar>
+            <img src="assets/images/{{shopDetails.img}}"/>
+        </ion-avatar>
+        <div class="card-title">{{shopDetails.ShopName}}</div>
+    </ion-card>
+
+    <!-- <div class="close-button-label">
+        To mark the shop Open, slide the Close Shop button
+    </div>
+    <ion-item>
+        <ion-label>{{isShopOpen ? 'Open' : 'Closed' }}</ion-label>
+        <ion-toggle ion-toggle-text (ionChange)="toggleButtonChanged();" [(ngModel)]="isShopOpen" slot="start" name="vendor" color="success"></ion-toggle>
+    </ion-item> -->
+    <!-- <ion-item>
+        <div class="range-div">
+        <input class="range" type="range" name="quantity" min='0' max='2' step='1' (ngModelChange)="rangeChaged($event);" [(ngModel)]="crowdValue"> 
+        </div>
+        <ion-buttons slot="end"> 
+            <ion-label>{{isShopOpen ? 'Open' : 'Closed' }}</ion-label>
+            <ion-toggle ion-toggle-text (ionChange)="toggleButtonChanged();" [(ngModel)]="isShopOpen" slot="start" name="vendor" color="success"></ion-toggle>
+        </ion-buttons>
+    </ion-item> -->
+ <!-- <button style="display: inline-block; width: 40px; height: 40px; border-radius: 20px; background-color: blueviolet; font-size: 12px; margin-right: 8px;">&nbsp;</button>
+                <button style="display: inline-block; width: 40px; height: 40px; border-radius: 20px; background-color: blueviolet; font-size: 12px; margin-right: 8px;">
+                    <div class="half-circle">&nbsp;</div>
+                </button>
+                <button style="display: inline-block; width: 40px; height: 40px; border-radius: 20px; background-color: rgb(167, 167, 167); font-size: 12px;">&nbsp;</button> -->
+               <!-- <ion-buttons slot="end">
+                <ion-toggle ion-toggle-text (ionChange)="toggleButtonChanged();" [(ngModel)]="isShopOpen" slot="start" name="vendor" color="success"></ion-toggle>
+            </ion-buttons> -->
+             <!-- <button style="display: inline-block; width: 40px; height: 40px; border-radius: 20px; background-color: blueviolet; font-size: 12px; margin-right: 8px;">&nbsp;</button>
+                <button style="display: inline-block; width: 40px; height: 40px; border-radius: 20px; background-color: blueviolet; font-size: 12px; margin-right: 8px;">
+                    <div class="half-circle">&nbsp;</div>
+                </button>
+                <button style="display: inline-block; width: 40px; height: 40px; border-radius: 20px; background-color: rgb(167, 167, 167); font-size: 12px;">&nbsp;</button> -->
+           <!-- <ion-buttons slot="end">
+                <ion-toggle ion-toggle-text (ionChange)="toggleButtonChanged();" [(ngModel)]="isShopOpen" slot="start" name="vendor" color="success"></ion-toggle>
+            </ion-buttons> -->
+    <!-- <ion-card sticky style=" padding: 1px; margin: 10px 10px;">
+        <ion-item>
+            <div style="width: 150px; border-radius: 25px; text-align: left; line-height: 38px; margin-bottom: 5px; padding-top: 8px;">
+                 <div class="empty-circle">&nbsp;</div>
+                <div class="full-circle" [ngClass]="[isShopOpen ? 'crowd-selected' : '']">&nbsp;</div>
+                <div class="circle" [ngClass]="[!isShopOpen ? 'crowd-selected' : '']">&nbsp;</div>
+            </div>
+            <div style="font-size: 12px; font-weight: bolder; color: #afafaf; display: block; width: 100px;">[{{isShopOpen ? 'Open' : 'Closed' }}]</div>
+            <ion-buttons slot="end"> 
+                <ion-toggle ion-toggle-text (ionChange)="toggleButtonChanged();" [(ngModel)]="isShopOpen" slot="start" name="vendor" color="success"></ion-toggle>
+            </ion-buttons>
+           
+        </ion-item>
+        <ion-item>
+            <div style="width: 150px; border-radius: 25px; text-align: left; line-height: 38px; margin-bottom: 5px; padding-top: 8px;">
+                     <div class="circle" [ngClass]="[crowdValue == 0 ? 'crowd-selected' : '']">&nbsp;</div>
+                <div class="half-circle" [ngClass]="[crowdValue == 1 ? 'crowd-selected' : '']">&nbsp;</div>
+                <div class="full-circle" [ngClass]="[crowdValue == 2 ? 'crowd-selected' : '']">&nbsp;</div>
+            </div>
+            <div style="font-size: 12px; font-weight: bolder; color: #afafaf; display: block; width: 100px;">[{{crowdLabel}}]</div>
+            <ion-buttons slot="end"> 
+                <input class="range" style="width: 60px;" type="range" name="quantity" min='0' max='2' step='1' (ngModelChange)="rangeChaged($event);" [(ngModel)]="crowdValue">
+            </ion-buttons>
+           
+        </ion-item>
+    </ion-card> -->
+
+    <ion-card style="--ion-background-color: linear-gradient(to left, #7274fb, #8563f6, #8e5cf3); color: #ffffff;">
+        <h4 style="padding-left: 20px; font-size: 16px; font-weight: bolder;">Crowd Strength indicator</h4>
+        <ion-card-content>
+            <ion-row>
+                <ion-col style="width: 30%; text-align: center;">
+                    <div class="circle" [ngClass]="[crowdValue == 0 ? 'crowd-selected' : '']">&nbsp;</div>
+                    <div>No Crowd</div>
+                </ion-col>
+                <ion-col style="width: 30%; text-align: center;">
+                    <div class="half-circle" [ngClass]="[crowdValue == 1 ? 'crowd-selected' : '']">&nbsp;</div>
+                    <div>Moderate crowd</div>
+                </ion-col>
+                <ion-col style="width: 40%; text-align: center;">
+                    <div class="full-circle" [ngClass]="[crowdValue == 2 ? 'crowd-selected' : '']">&nbsp;</div>
+                    <div>Crowded</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col style="width: 100%; text-align: center;">
+                    <input class="range" type="range" style="width: 70%;" name="quantity" min='0' max='2' step='1' (ngModelChange)="rangeChaged($event);" [(ngModel)]="crowdValue">
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card style="--ion-background-color: linear-gradient(to left, #ab79ed, #b293da, #d1bbed); color: #ffffff;">
+        <h4 style="padding-left: 20px; font-size: 16px; font-weight: bolder;">Start/Stop Services</h4>
+        <ion-card-content>
+            <ion-row>
+                <ion-col style="width: 50%; text-align: center;">
+                    <div class="full-circle" [ngClass]="[!isShopOpen ? 'crowd-selected' : '']">&nbsp;</div>
+                    <div>Open</div>
+                </ion-col>
+                <ion-col style="width: 50%; text-align: center;">
+                    <div class="circle" [ngClass]="[isShopOpen ? 'crowd-selected' : '']">&nbsp;</div>
+                    <div>Close</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col style="width: 100%; text-align: center;">
+                    <input class="range" type="range" style="width: 50%;" name="quantity" min='0' max='1' step='1' (ngModelChange)="toggleButtonChanged($event);" [(ngModel)]="isShopOpen">
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+    
+    <!-- <ion-card>
+        <ion-header style="padding: 20px 10px;">
+            Start/Stop Services
+        </ion-header>
+        <ion-card-content>
+            <ion-row>
+                <ion-col style="width: 50%;">
+                    <ion-label>{{isShopOpen ? 'Open' : 'Closed' }}</ion-label>
+                </ion-col>
+                <ion-col style="width: 50%; text-align: right;">
+                    <ion-toggle ion-toggle-text (ionChange)="toggleButtonChanged();" [(ngModel)]="isShopOpen" name="vendor" color="success"></ion-toggle>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card> -->
+</ion-content>
+<app-loader *ngIf="dataService.loading$ | async"></app-loader>

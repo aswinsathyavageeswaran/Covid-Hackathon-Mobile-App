@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="start">
+            <img src="assets/images/logo.png" style="padding-left:20px; width: 120px;"/>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="no-shops-div" *ngIf="!dataService.nearbyShops || !dataService.nearbyShops.length">
+        No Shops nearby. 
+    </div>
+    <ion-card *ngFor="let shop of dataService.nearbyShops">
+        <div style="position: absolute; top: -8px; left:8px; right:-10px; text-align: right; z-index: 9999;"><img src="assets/images/crowded_{{shop.Status}}.png"></div>
+        <ion-card-content>
+            <ion-item>
+                <ion-label>
+                    <div class="openclose-status-active" *ngIf="shop.Status != 1">Open</div>
+                    <div class="openclose-status-inactive" *ngIf="shop.Status == 2">Closed</div>
+                    <div style="float: left; width: 55px; line-height: 20px; font-size: 14px; margin-left: 5px;color: #2b2a2a; font-weight: bolder;">{{shop.ShopName}}</div>
+                    <br clear="both" />
+                    <p>+91 - {{shop.PhoneNumber}}</p>
+                    <div class="flex-container" *ngIf="shop.Distance != 0">
+                        <div class="distance">
+                            <ion-icon name="location-outline" style="padding-right: 3px;"></ion-icon>{{shop.Distance}}km away
+                        </div>
+                        <div class="navigate-btn" (click)="navigateTo(shop.Location)">
+                            Navigate
+                        </div>
+                    </div>
+                </ion-label>
+            </ion-item>
+            <ion-row>
+                <ion-col>
+                    {{shop.Address}}
+                </ion-col>
+                <ion-col *ngIf="shop.IsHomeDeliveryAvailable">
+                    <div class="details" style="text-align: end;" >
+                        <img src="assets/images/home_delivery.png" style="width:135px; height:16px;vertical-align: bottom; padding-left: 5px;">
+                        <div style="font-size: 12px; padding: 0px; font-weight: bolder; padding-right: 5px; padding-top: 5px;">
+                            <a href="tel:+91{{shop.DeliveryNumber}}" class="button button-positive">+91: {{shop.DeliveryNumber}}</a>
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
+
+<app-loader *ngIf="dataService.loading$ | async"></app-loader>

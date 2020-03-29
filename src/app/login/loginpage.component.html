@@ -1,32 +1,36 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <img src="assets/images/logo.png" style="padding-left:20px; width: 120px;" />
         </ion-buttons>
-        <ion-title>Log In</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <div class="login-container">
-        <div class="login-form">
-            <ion-item lines="full">
-                <ion-label position="floating">Email</ion-label>
-                <ion-input [(ngModel)]="email" type="text" required></ion-input>
-            </ion-item>
+<ion-content center text-center>
+    <div class="mainbg">
+        <ion-card>
+            <ion-card-content>
+                <ion-item lines="full">
+                    <ion-label position="floating">Email</ion-label>
+                    <ion-input [(ngModel)]="email" type="text" required></ion-input>
+                </ion-item>
 
-            <ion-item lines="full">
-                <ion-label position="floating">Password</ion-label>
-                <ion-input type="password" [(ngModel)]="password" required></ion-input>
-            </ion-item>
-
-            <ion-row>
-                <ion-col>
-                    <ion-button class="sign-in-btn" type="submit" color="primary" expand="block" (click)="login();">
-                        Sign In</ion-button>
-                    <a [routerLink]="['/forgot-password']" class="small-text">Forgot Password?</a>
-                </ion-col>
-            </ion-row>
-        </div>
+                <ion-item lines="full">
+                    <ion-label position="floating">Password</ion-label>
+                    <ion-input type="password" [(ngModel)]="password" required></ion-input>
+                </ion-item>
+                <ion-row>
+                    <ion-col>
+                        <ion-button
+                            [disabled]="(!email || (email && !email.trim().length)) || (!password || (password && !password.trim().length))"
+                            class="sign-in-btn" expand="block" (click)="login();">
+                            Sign In
+                        </ion-button>
+                        <a [routerLink]="['/forgot-password']" class="small-text">Forgot Password?</a>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
     </div>
 </ion-content>
+<app-loader *ngIf="dataService.loading$ | async"></app-loader>
