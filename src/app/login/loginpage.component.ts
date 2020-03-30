@@ -13,7 +13,7 @@ export class LoginPageComponent implements OnInit {
     public email: string = "";
     public password: string = "";
     constructor(
-        private dataService: DataService,
+        public dataService: DataService,
         private router: Router,
         private storage: Storage
     ) { }
@@ -28,7 +28,10 @@ export class LoginPageComponent implements OnInit {
         };
         this.dataService.loading$.next(true);
         this.dataService.login(payload).subscribe(res => {
+
             this.dataService.loading$.next(false);
+            this.router.navigateByUrl("details");
+            this.dataService.loggedInShopDetails = res;
             if (res && res.UserEmail) {
                 if (res.DeliveryNumber && res.DeliveryNumber.length && !res.IsHomeDeliveryAvailable) {
                     res.IsHomeDeliveryAvailable = true;

@@ -13,11 +13,11 @@
         No Shops nearby. 
     </div>
     <ion-card *ngFor="let shop of dataService.nearbyShops">
-        <div style="position: absolute; top: -8px; left:8px; right:-10px; text-align: right; z-index: 9999;"><img src="assets/images/crowded_{{shop.Status}}.png"></div>
+        <div *ngIf="shop.Status != 2" style="position: absolute; top: -8px; left:8px; right:-10px; text-align: right; z-index: 9999;"><img src="assets/images/crowded_{{shop.Status}}.png"></div>
         <ion-card-content>
             <ion-item>
                 <ion-label>
-                    <div class="openclose-status-active" *ngIf="shop.Status != 1">Open</div>
+                    <div class="openclose-status-active" *ngIf="shop.Status != 2">Open</div>
                     <div class="openclose-status-inactive" *ngIf="shop.Status == 2">Closed</div>
                     <div style="float: left; width: 55px; line-height: 20px; font-size: 14px; margin-left: 5px;color: #2b2a2a; font-weight: bolder;">{{shop.ShopName}}</div>
                     <br clear="both" />
@@ -30,7 +30,10 @@
                             Navigate
                         </div>
                     </div>
-                </ion-label>
+                    <div class="flex-container"  *ngIf="shop.Distance == 0">
+                        You are at the destination
+                    </div>
+                </ion-label>    
             </ion-item>
             <ion-row>
                 <ion-col>

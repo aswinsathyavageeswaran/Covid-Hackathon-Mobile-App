@@ -9,7 +9,7 @@ import { DataService } from '../data.service';
 export class ShopDetailsPageComponent implements OnInit {
 
     constructor(
-        private dataService: DataService
+        public dataService: DataService
     ) { }
 
     public shopDetails: any = {};
@@ -58,6 +58,8 @@ export class ShopDetailsPageComponent implements OnInit {
             UserEmail: this.dataService.loggedInShopDetails.UserEmail,
             Status: event == 0 ? 0 : 2
         }
+        this.crowdValue = 0;
+        this.dataService.loggedInShopDetails.Status = payload.Status;
         this.dataService.loading$.next(true);
         this.dataService.updateShopStatus(payload).subscribe(res => {
             this.dataService.loading$.next(false);
@@ -77,7 +79,11 @@ export class ShopDetailsPageComponent implements OnInit {
         this.crowdValue = event;
         this.crowdLabel = this.crowdJson[event];
         let crowdStatus = undefined;
-
+        // If the shop is closed and user tries to change the crowd status
+        if (this.dataService.loggedInShopDetails.Status == 2) {
+            this.isShopOpen = 0;
+            this.dataService.presentMessageToast("The Shop status will be changed to Open");
+        }
         switch (event) {
             case 0:
                 crowdStatus = 4; // If green is selected crowd status is set to 4
@@ -91,8 +97,9 @@ export class ShopDetailsPageComponent implements OnInit {
         }
         const payload = {
             UserEmail: this.dataService.loggedInShopDetails.UserEmail,
-            Status: event
+            Status: crowdStatus
         }
+        this.dataService.loggedInShopDetails.Status = crowdStatus;
         this.dataService.loading$.next(true);
         this.dataService.updateShopStatus(payload).subscribe(res => {
             this.dataService.loading$.next(false);

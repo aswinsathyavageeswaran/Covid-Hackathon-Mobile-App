@@ -18,7 +18,7 @@ export class RegisterPageComponent implements OnInit {
 
   constructor(
     private emailComposer: EmailComposer,
-    private dataService: DataService,
+    public dataService: DataService,
     private router: Router,
     private alertCtrl: AlertController
   ) { }

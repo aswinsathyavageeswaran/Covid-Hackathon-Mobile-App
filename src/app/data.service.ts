@@ -18,13 +18,11 @@ export class DataService {
 
     public businessTypeImageNames = {
         1: "medical.jpg",
-        2: "bakery.jpg",
-        3: "grocery.jpg",
+        2: "grocery.jpg",
+        3: "health.jpg",
         4: "vegetables.jpg",
-        5: "medical.jpg",
-        6: "bakery.jpg",
-        7: "vegetables.jpg",
-        8: "bakery.jpg"
+        5: "petrol.jpg",
+        6: "milk-meat.jpg"
     };
 
     constructor(
@@ -103,6 +101,15 @@ export class DataService {
         const toast = await this.toastController.create({
             duration: 2000,
             color: 'danger',
+            message: message
+        });
+        toast.present();
+    }
+
+    public async presentMessageToast(message: string) {
+        const toast = await this.toastController.create({
+            duration: 2000,
+            color: 'primary',
             message: message
         });
         toast.present();
