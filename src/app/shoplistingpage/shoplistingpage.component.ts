@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator/ngx';
 import { Platform } from '@ionic/angular';
 
 
@@ -15,15 +14,13 @@ export class ShopListingPageComponent implements OnInit {
 
     constructor(
         public dataService: DataService,
-        private launchNavigator: LaunchNavigator,
         private platform: Platform
     ) { }
 
     public ngOnInit(): void {
-        // let options: LaunchNavigatorOptions = {
-        //     start: 'London, ON',
-        //     app: this.launchNavigator.APP.GOOGLE_MAPS
-        // }
+        let closedShops = this.dataService.nearbyShops.filter(s => s.Status == 2);
+        this.dataService.nearbyShops = this.dataService.nearbyShops.filter(s => s.Status != 2);
+        this.dataService.nearbyShops = this.dataService.nearbyShops.concat(closedShops);
     }
 
     public navigateTo(location: any): void {

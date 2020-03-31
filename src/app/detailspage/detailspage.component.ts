@@ -108,6 +108,7 @@ export class DetailsPageComponent implements OnInit {
         this.dataService.presentSuccessToast("You are logged out from the application");
         // this.dataService.shopList = undefined;
         this.dataService.loggedInShopDetails = undefined;
+        this.storage.clear();
         // this.dataService.businessTypes = [];
         // this.dataService.nearbyShops = [];
         // this.dataService.selectedBusinessType = undefined;

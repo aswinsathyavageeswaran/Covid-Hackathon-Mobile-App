@@ -74,3 +74,20 @@ ion-toggle {
 .ion-content {
     background: #e0e3fc !important;
 }
+
+.update-location-btn-div {
+    display: flex;
+    display: -webkit-flex;
+    .update-location-btn {
+        width: 6.5rem;
+        padding: 0.5rem;    
+        margin-left: auto;
+        margin-right: 1rem;
+        background: #8B50E2;
+        margin: 0.5rem 1rem 0.5rem auto;
+        font-size: 12px;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 8px;
+    }
+}   

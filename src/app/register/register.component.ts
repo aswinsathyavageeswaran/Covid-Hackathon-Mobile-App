@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { EmailComposer } from '@ionic-native/email-composer/ngx';
+// import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-register-page',
@@ -17,10 +18,10 @@ export class RegisterPageComponent implements OnInit {
   public confirmPassword: string = ""
 
   constructor(
-    private emailComposer: EmailComposer,
     public dataService: DataService,
     private router: Router,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private geolocation: Geolocation
   ) { }
 
   public registrationData: any = {
@@ -39,6 +40,11 @@ export class RegisterPageComponent implements OnInit {
 
   public ngOnInit(): void {
     if (!this.dataService.currentLoggedInUserLocation || !this.dataService.currentLoggedInUserLocation.coords.longitude || !this.dataService.currentLoggedInUserLocation.coords.latitude) {
+      this.dataService.presentErrorToast("Failed to get your current location, Please try again");
+      this.router.navigateByUrl("details");
+    }
+
+    if (!this.dataService.loggedInShopDetails) {
       this.presentAlert();
     }
 
@@ -67,7 +73,7 @@ export class RegisterPageComponent implements OnInit {
           }
         }, () => {
           this.dataService.loading$.next(false);
-          this.dataService.presentErrorToast("Failed to Register, Please try again");
+          this.dataService.presentErrorToast("Failed to Update, Please try again");
         });
     }
     // Creating the user profile
@@ -121,7 +127,7 @@ export class RegisterPageComponent implements OnInit {
       case "UserEmail":
         this.registrationData.UserEmail = event;
         break;
-      case "Password": 
+      case "Password":
         this.registrationData.Password = event;
         break;
       case "ConfirmPassword":
@@ -186,26 +192,51 @@ export class RegisterPageComponent implements OnInit {
 
   async presentAlert() {
     let alert = this.alertCtrl.create({
-      header: 'Confirmation',
-      message: 'The registration needs the correct location of your Shop. Are you at your Shop?',
+      header: 'Are you at Shop',
+      message: 'Is this the location of your shop/service area? <br /> <br />Note : This location will be used to guide customer to your shop/service area',//'The registration needs the correct location of your Shop. If you are NOT at your shop, please update the location once you have registered',
       cssClass: "popup-container",
       buttons: [
         {
-          text: 'NO',
+          text: 'No',
           role: 'cancel',
           handler: () => {
+            this.dataService.presentErrorToast("Please go to your shop/service area and register");
             this.router.navigateByUrl("details");
           }
         },
         {
-          text: 'YES',
+          text: 'Yes',
           handler: () => {
-            
+            //this.router.navigateByUrl("details");
           }
         }
       ]
     });
     (await alert).present();
+  }
+
+  public getLocation(): void {
+    this.dataService.loading$.next(true);
+    this.geolocation.getCurrentPosition().then((resp) => {
+      let payload = this.registrationData;
+      this.dataService.currentLoggedInUserLocation = resp;
+      payload.Longitude = resp.coords.longitude;
+      payload.Latitude = resp.coords.latitude;
+      this.dataService.updateProfile(this.registrationData)
+        .subscribe(res => {
+          this.dataService.loading$.next(false);
+          if (res != undefined || res != null) {
+            this.dataService.presentSuccessToast("Location Updated Successfully");
+          }
+        }, () => {
+          this.dataService.loading$.next(false);
+          this.dataService.presentErrorToast("Failed to Update the Location, Please try again");
+        });
+    }).catch((error) => {
+      this.dataService.loading$.next(false);
+      this.dataService.presentErrorToast("Failed to update the location, Please try again");
+      console.log('Error getting location', error);
+    });
   }
 
 }

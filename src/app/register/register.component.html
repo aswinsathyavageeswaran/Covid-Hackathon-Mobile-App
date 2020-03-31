@@ -11,6 +11,9 @@
 
 <ion-content center text-center>
     <div class="mainbg">
+        <div class="update-location-btn-div" *ngIf="dataService.loggedInShopDetails">
+            <div class="update-location-btn" (click)="getLocation();">Update Location</div>
+        </div>
         <ion-card>
             <ion-card-content>
                 <ion-item lines="full">

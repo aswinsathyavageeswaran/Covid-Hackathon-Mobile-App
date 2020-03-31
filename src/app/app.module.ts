@@ -20,13 +20,25 @@ import { RegisterPageComponent } from './register/register.component';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { DetailsPageComponent } from './detailspage/detailspage.component';
 import { ShopListingPageComponent } from './shoplistingpage/shoplistingpage.component';
-import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { ShopDetailsPageComponent } from './shopdetailpage/shopdetailpage.component';
 import { HttpClientModule } from "@angular/common/http";
 import { LoaderComponent } from './loader-component/loader-component';
 import { IonicStorageModule } from '@ionic/storage';
 import { DataService } from './data.service';
-import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
+
+// import { AngularFireModule } from 'angularfire2';
+// import { AngularFirestoreModule } from 'angularfire2/firestore';
+// import { Firebase } from '@ionic-native/firebase/ngx';
+// import { PushNotificationService } from './push-notification.service';
+
+// const config = {
+//   apiKey: "AIzaSyB47Vg2pW0AwQklFiM2swurCJ_esQ10gLI",
+//   authDomain: "locatez.firebaseapp.com",
+//   databaseURL: "https://locatez.firebaseio.com",
+//   projectId: "locatez",
+//   storageBucket: "locatez.appspot.com",
+//   messagingSenderId: "976518623917"
+// };
 
 
 @NgModule({
@@ -58,14 +70,16 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
       name: 'locatez',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
     })
+    // AngularFireModule.initializeApp(config),
+    // AngularFirestoreModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Geolocation,
-    EmailComposer,
     DataService,
-    LaunchNavigator,
+    //Firebase,
+    // PushNotificationService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
